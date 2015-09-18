@@ -15,7 +15,7 @@
 #' @import ggplot2
 
 ggplotit.CA <- function(x, arrows=c(T,T), ...) {
-  stopifnot(length(arrows) = 2)
+  stopifnot(length(arrows) == 2)
   
   X <- as.data.frame(x$row$coord[,1:2])
   X$Names <- rownames(x$row$coord)
