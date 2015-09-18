@@ -1,27 +1,27 @@
-#' Plot the CA Objects with the ggplot2 Package
+#' Plot the ca Objects with the ggplot2 Package
 #'
-#' Function \code{ggplotit.CA} plots objects of the class CA{FactoMineR}
+#' Function \code{ggplotit.ca} plots objects of the class ca{ca}
 #'
-#' @param x An object of class CA
+#' @param x An object of class ca
 #' @param arrows If TRUE arrows will be ploted
 #' @param ... Other parameters
 #' @return An ggplot2 plot
 #' @examples
 #' \dontrun{
-#' library(FactoMineR)
-#' obj <- CA(children, row.sup = 15:18, col.sup = 6:8)
+#' library(ca)
+#' obj <- ca(haireye)
 #' ggplotit(obj)
 #' }
 #' @export
 #' @import ggplot2
 
-ggplotit.CA <- function(x, arrows=c(FALSE, FALSE), ...) {
+ggplotit.ca <- function(x, arrows=c(FALSE, FALSE), ...) {
   stopifnot(length(arrows) == 2)
   
-  X <- as.data.frame(x$row$coord[,1:2])
-  X$Names <- rownames(x$row$coord)
-  Y <- as.data.frame(x$col$coord[,1:2])
-  Y$Names <- rownames(x$col$coord)
+  X <- as.data.frame(x$rowcoord[,1:2])
+  X$Names <- rownames(x$rowcoord)
+  Y <- as.data.frame(x$colcoord[,1:2])
+  Y$Names <- rownames(x$colcoord)
   colnames(X) <- c("x.Dim1","x.Dim2", "x.Names")
   colnames(Y) <- c("y.Dim1","y.Dim2", "y.Names")
   
