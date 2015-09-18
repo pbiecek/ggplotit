@@ -4,6 +4,7 @@
 #'
 #' @param x An object.
 #' @param ... Other parameters.
+#' @export
 
 ggplotit <- function(x, ...) {
   UseMethod("ggplotit")
