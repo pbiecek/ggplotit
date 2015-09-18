@@ -2,4 +2,3 @@
 #'
 #' @docType package
 #' @name ggplotit
-NULL 
