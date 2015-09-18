@@ -4,7 +4,7 @@
 \alias{ggplotit.CA}
 \title{Plot the CA objects with ggplot2}
 \usage{
-\method{ggplotit}{CA}(x, arrows = c(T, T), ...)
+\method{ggplotit}{CA}(x, arrows = c(FALSE, FALSE), ...)
 }
 \arguments{
 \item{x}{An object of class CA}
@@ -22,7 +22,7 @@ Function \code{ggplotit.CA} plots objects of the class CA
 \examples{
 \dontrun{
 library(FactoMineR)
-obj <- CA(children)
+obj <- CA(children, row.sup = 15:18, col.sup = 6:8)
 ggplotit(obj)
 }
 }

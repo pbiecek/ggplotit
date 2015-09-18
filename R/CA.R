@@ -9,13 +9,13 @@
 #' @examples
 #' \dontrun{
 #' library(FactoMineR)
-#' obj <- CA(children)
+#' obj <- CA(children, row.sup = 15:18, col.sup = 6:8)
 #' ggplotit(obj)
 #' }
 #' @export
 #' @import ggplot2
 
-ggplotit.CA <- function(x, arrows=c(TRUE,FALSE), ...) {
+ggplotit.CA <- function(x, arrows=c(FALSE, FALSE), ...) {
   stopifnot(length(arrows) == 2)
   
   X <- as.data.frame(x$row$coord[,1:2])
