@@ -1,8 +1,8 @@
 Package: ggplotit
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Title: Plots Objects of Different Classes with the ggplot Package
+Version: 0.0.1
+Authors@R: person("Przemyslaw", "Biecek", email = "przemyslaw.biecek@gmail.com", role = c("aut", "cre"))
+Description: Plots Objects of Different Classes with the ggplot Package.
 Depends: R (>= 3.2.1)
-License: What license is it under?
+License: GPL-2
 LazyData: true

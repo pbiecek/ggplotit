@@ -12,6 +12,7 @@
 #' obj <- CA(children)
 #' ggplotit(obj)
 #' }
+#' @export
 #' @import ggplot2
 
 ggplotit.CA <- function(x, arrows=c(T,T), ...) {
