@@ -4,6 +4,7 @@
 #'
 #' @param x An object of class CA
 #' @param arrows If TRUE arrows will be ploted
+#' @param names List with two vectors - names of rows and columns of contingence table. If NULL then names are derived from CA object. 
 #' @param ... Other parameters
 #' @return An ggplot2 plot
 #' @examples
@@ -15,13 +16,19 @@
 #' @export
 #' @import ggplot2
 
-ggplotit.CA <- function(x, arrows=c(FALSE, FALSE), ...) {
+ggplotit.CA <- function(x, arrows=c(FALSE, FALSE), names=NULL, ...) {
   stopifnot(length(arrows) == 2)
+  stopifnot(length(names) == 2 | is.null(names))
   
   X <- as.data.frame(x$row$coord[,1:2])
-  X$Names <- rownames(x$row$coord)
   Y <- as.data.frame(x$col$coord[,1:2])
-  Y$Names <- rownames(x$col$coord)
+  if (!is.null(names)) {
+    X$Names <- names[[1]]
+    Y$Names <- names[[2]]
+  } else {
+    X$Names <- rownames(x$row$coord)
+    Y$Names <- rownames(x$col$coord)
+  }
   colnames(X) <- c("x.Dim1","x.Dim2", "x.Names")
   colnames(Y) <- c("y.Dim1","y.Dim2", "y.Names")
   
