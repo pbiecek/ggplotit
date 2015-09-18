@@ -1,4 +1,4 @@
-#' Plot the CA objects with ggplot2
+#' Plot the CA Objects with the ggplot2 Package
 #'
 #' Function \code{ggplotit.CA} plots objects of the class CA
 #'

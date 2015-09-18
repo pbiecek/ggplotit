@@ -2,7 +2,7 @@
 % Please edit documentation in R/CA.R
 \name{ggplotit.CA}
 \alias{ggplotit.CA}
-\title{Plot the CA objects with ggplot2}
+\title{Plot the CA Objects with the ggplot2 Package}
 \usage{
 \method{ggplotit}{CA}(x, arrows = c(FALSE, FALSE), ...)
 }
