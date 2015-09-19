@@ -4,10 +4,12 @@
 \alias{ggplotit.table}
 \title{Plot the table Objects with the ggplot2 Package}
 \usage{
-\method{ggplotit}{table}(x, ...)
+\method{ggplotit}{table}(x, type = "seq", ...)
 }
 \arguments{
 \item{x}{An object of class table}
+
+\item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
 \item{...}{Other parameters}
 }
