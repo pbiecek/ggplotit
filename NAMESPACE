@@ -3,6 +3,7 @@
 S3method(ggplotit,CA)
 S3method(ggplotit,Cuminc)
 S3method(ggplotit,ca)
+S3method(ggplotit,survfitms)
 S3method(ggplotit,table)
 export(ggplotit)
 import(RColorBrewer)

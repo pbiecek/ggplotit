@@ -1,35 +1,35 @@
-#' Plot the Cuminc Objects with the ggplot2 Package
+#' Plot the Multi State Objects with the ggplot2 Package
 #'
-#' Function \code{ggplotit.Cuminc} plots objects of the class Cuminc{mstate}
+#' Function \code{ggplotit.survfitms} plots objects of the class survfitms{survival}
 #' Calculate nonparametric cumulative incidence functions.
 #' Competing Risks Model.
 #'
-#' @param x An object of class Cuminc
+#' @param x An object of class survfitms
 #' @param ... Other parameters
+#' @param conf.int - shall the confidence interval be plotted?
+#' @param labels - shall labels be added?
 #' @return An ggplot2 plot
 #' @examples
 #' \dontrun{
 #' library(mstate)
 #' data(aidssi)
-#' ci <- Cuminc(time=aidssi$time, status=aidssi$status)
+#' ci <- survfit(Surv(time=aidssi$time, status=aidssi$status)~1)
 #' ggplotit(ci)
-#' ggplotit(ci, conf.int=TRUE)
-#' ggplotit(ci, conf.int=TRUE, labels=c("event-free","AIDS","SI))
 #' }
 #' @export
+#' @rdname survfitms
 #' @import ggplot2
 
-ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
-  obj <- attr(x, "survfit")
+ggplotit.survfitms <- function(obj, conf.int=FALSE, labels=NULL, ...) {
   mat <- obj$prev
   matL <- obj$lower
   matU <- obj$upper
   tmp <- data.frame(time = obj$time,
                     mat[,-ncol(mat)])
   tmpL <- data.frame(time = obj$time,
-                    matL[,-ncol(matL)])
+                     matL[,-ncol(matL)])
   tmpU <- data.frame(time = obj$time,
-                    matU[,-ncol(matU)])
+                     matU[,-ncol(matU)])
 
   # is strata presented?
   if (length(obj$n)>1) {
@@ -49,10 +49,41 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
 
   # ggplot2
   pl <- ggplot(tmp_long, aes(time, val, color=event, group=paste(strata, event))) +
-    geom_step() + ylab("prevalence")
+    geom_step(aes(linetype=strata)) + ylab("prevalence")
   if (conf.int) {
     pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=event), alpha=0.5, linetype=0)
   }
 
   pl
 }
+
+#' Plot the Cuminc Objects with the ggplot2 Package
+#'
+#' Function \code{ggplotit.Cuminc} plots objects of the class Cuminc{mstate}
+#' Calculate nonparametric cumulative incidence functions.
+#' Competing Risks Model.
+#'
+#' @param x An object of class Cuminc
+#' @param conf.int - shall the confidence interval be plotted?
+#' @param labels - shall labels be added?
+#' @param ... Other parameters
+#' @return An ggplot2 plot
+#' @examples
+#' \dontrun{
+#' library(mstate)
+#' data(aidssi)
+#' ci <- Cuminc(time=aidssi$time, status=aidssi$status)
+#' ggplotit(ci)
+#' ggplotit(ci, conf.int=TRUE)
+#' ggplotit(ci, conf.int=TRUE, labels=c("event-free","AIDS","SI"))
+#' }
+#' @export
+#' @rdname Cuminc
+#' @import ggplot2
+
+
+ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
+  obj <- attr(x, "survfit")
+  ggplotit.survfitms(obj, conf.int = conf.int, labels = labels, ...)
+}
+

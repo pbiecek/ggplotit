@@ -4,10 +4,14 @@
 \alias{ggplotit.Cuminc}
 \title{Plot the Cuminc Objects with the ggplot2 Package}
 \usage{
-\method{ggplotit}{Cuminc}(x, conf.int = FALSE, ...)
+\method{ggplotit}{Cuminc}(x, conf.int = FALSE, labels = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class Cuminc}
+
+\item{conf.int}{- shall the confidence interval be plotted?}
+
+\item{labels}{- shall labels be added?}
 
 \item{...}{Other parameters}
 }
@@ -17,6 +21,7 @@ An ggplot2 plot
 \description{
 Function \code{ggplotit.Cuminc} plots objects of the class Cuminc{mstate}
 Calculate nonparametric cumulative incidence functions.
+Competing Risks Model.
 }
 \examples{
 \dontrun{
@@ -24,6 +29,8 @@ library(mstate)
 data(aidssi)
 ci <- Cuminc(time=aidssi$time, status=aidssi$status)
 ggplotit(ci)
+ggplotit(ci, conf.int=TRUE)
+ggplotit(ci, conf.int=TRUE, labels=c("event-free","AIDS","SI"))
 }
 }
 
