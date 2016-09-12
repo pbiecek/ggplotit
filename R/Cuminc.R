@@ -16,16 +16,28 @@
 #' @export
 #' @import ggplot2
 
-ggplotit.Cuminc <- function(x, ...) {
+ggplotit.Cuminc <- function(x, conf.int=FALSE,  ...) {
   obj <- attr(x, "survfit")
-  mat <- obj$cumhaz[dim(obj$cumhaz)[1],,]
-  tmp <- data.frame(time = obj$time, t(mat))
-  tmp_long <- tidyr::gather(tmp[,-ncol(tmp)], var, val, -time)
+  mat <- obj$prev
+  matL <- obj$lower
+  matU <- obj$upper
+  tmp <- data.frame(time = obj$time,
+                    mat[,-ncol(mat)])
+  tmpL <- data.frame(time = obj$time,
+                    matL[,-ncol(matL)])
+  tmpU <- data.frame(time = obj$time,
+                    matU[,-ncol(matU)])
+  tmp_long <- tidyr::gather(tmp, var, val, -time)
+  tmp_longL <- tidyr::gather(tmpL, varL, valL, -time)
+  tmp_longU <- tidyr::gather(tmpU, varU, valU, -time)
+  tmp_long <- cbind(tmp_long, tmp_longL, tmp_longU)
 
   # ggplot2
   pl <- ggplot(tmp_long, aes(time, val, color=var)) +
-    geom_point() +
-    geom_step()
+    geom_step() + ylab("prevalence")
+  if (conf.int) {
+    pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=var), alpha=0.5, linetype=0)
+  }
 
   pl
 }
