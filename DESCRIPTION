@@ -3,6 +3,8 @@ Title: Plots Objects of Different Classes with the ggplot Package
 Version: 0.0.1
 Authors@R: person("Przemyslaw", "Biecek", email = "przemyslaw.biecek@gmail.com", role = c("aut", "cre"))
 Description: Plots Objects of Different Classes with the ggplot Package.
-Depends: R (>= 3.2.1)
+Depends:
+    R (>= 3.2.1)
 License: GPL-2
 LazyData: true
+RoxygenNote: 5.0.1
