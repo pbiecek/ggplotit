@@ -30,20 +30,20 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
                     matL[,-ncol(matL)])
   tmpU <- data.frame(time = obj$time,
                     matU[,-ncol(matU)])
-  tmp_long <- tidyr::gather(tmp, var, val, -time)
+  tmp_long <- tidyr::gather(tmp, event, val, -time)
   tmp_longL <- tidyr::gather(tmpL, varL, valL, -time)
   tmp_longU <- tidyr::gather(tmpU, varU, valU, -time)
   tmp_long <- cbind(tmp_long, tmp_longL, tmp_longU)
 
   if (!is.null(labels)) {
-    tmp_long$var <- factor(tmp_long$var, labels=labels[-1])
+    tmp_long$event <- factor(tmp_long$event, labels=labels[-1])
   }
 
   # ggplot2
-  pl <- ggplot(tmp_long, aes(time, val, color=var)) +
+  pl <- ggplot(tmp_long, aes(time, val, color=event)) +
     geom_step() + ylab("prevalence")
   if (conf.int) {
-    pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=var), alpha=0.5, linetype=0)
+    pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=event), alpha=0.5, linetype=0)
   }
 
   pl
