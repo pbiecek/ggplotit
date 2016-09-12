@@ -30,7 +30,15 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
                     matL[,-ncol(matL)])
   tmpU <- data.frame(time = obj$time,
                     matU[,-ncol(matU)])
-  tmp_long <- tidyr::gather(tmp, event, val, -time)
+
+  # is strata presented?
+  if (length(obj$n)>1) {
+    tmp$strata <- rep(names(obj$strata), obj$n)
+  } else {
+    tmp$strata <- ""
+  }
+
+  tmp_long <- tidyr::gather(tmp, event, val, -time, -strata)
   tmp_longL <- tidyr::gather(tmpL, varL, valL, -time)
   tmp_longU <- tidyr::gather(tmpU, varU, valU, -time)
   tmp_long <- cbind(tmp_long, tmp_longL, tmp_longU)
@@ -38,14 +46,6 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
   if (!is.null(labels)) {
     tmp_long$event <- factor(tmp_long$event, labels=labels[-1])
   }
-
-  # is strata presented?
-  if (length(obj$n)>1) {
-    tmp_long$strata <- rep(names(obj$strata), obj$n)
-  } else {
-    tmp_long$strata <- ""
-  }
-
 
   # ggplot2
   pl <- ggplot(tmp_long, aes(time, val, color=event, group=strata)) +
