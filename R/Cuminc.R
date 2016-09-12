@@ -33,7 +33,7 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
 
   # is strata presented?
   if (length(obj$n)>1) {
-    tmp$strata <- rep(names(obj$strata), obj$n)
+    tmp$strata <- rep(names(obj$strata), obj$strata)
   } else {
     tmp$strata <- ""
   }
@@ -48,7 +48,7 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
   }
 
   # ggplot2
-  pl <- ggplot(tmp_long, aes(time, val, color=event, group=strata)) +
+  pl <- ggplot(tmp_long, aes(time, val, color=event, group=paste(strata, event))) +
     geom_step() + ylab("prevalence")
   if (conf.int) {
     pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=event), alpha=0.5, linetype=0)
