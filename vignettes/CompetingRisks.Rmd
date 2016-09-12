@@ -12,6 +12,8 @@ vignette: >
 ## Competing Risks Models
 
 ```{r}
+library(ggplot2)
+library(ggplotit)
 library(mstate)
 data(aidssi)
 ci <- Cuminc(time=aidssi$time, status=aidssi$status)
