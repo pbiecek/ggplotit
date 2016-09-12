@@ -2,6 +2,7 @@
 #'
 #' Function \code{ggplotit.Cuminc} plots objects of the class Cuminc{mstate}
 #' Calculate nonparametric cumulative incidence functions.
+#' Competing Risks Model.
 #'
 #' @param x An object of class Cuminc
 #' @param ... Other parameters
@@ -12,11 +13,13 @@
 #' data(aidssi)
 #' ci <- Cuminc(time=aidssi$time, status=aidssi$status)
 #' ggplotit(ci)
+#' ggplotit(ci, conf.int=TRUE)
+#' ggplotit(ci, conf.int=TRUE, labels=c("event-free","AIDS","SI))
 #' }
 #' @export
 #' @import ggplot2
 
-ggplotit.Cuminc <- function(x, conf.int=FALSE,  ...) {
+ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
   obj <- attr(x, "survfit")
   mat <- obj$prev
   matL <- obj$lower
@@ -31,6 +34,10 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE,  ...) {
   tmp_longL <- tidyr::gather(tmpL, varL, valL, -time)
   tmp_longU <- tidyr::gather(tmpU, varU, valU, -time)
   tmp_long <- cbind(tmp_long, tmp_longL, tmp_longU)
+
+  if (!is.null(labels)) {
+    tmp_long$var <- factor(tmp_long$var, labels=labels[-1])
+  }
 
   # ggplot2
   pl <- ggplot(tmp_long, aes(time, val, color=var)) +
