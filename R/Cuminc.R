@@ -49,7 +49,7 @@ ggplotit.survfitms <- function(obj, conf.int=FALSE, labels=NULL, ...) {
 
   # ggplot2
   pl <- ggplot(tmp_long, aes(time, val, color=event, group=paste(strata, event))) +
-    geom_step(aes(linetype=strata)) + ylab("prevalence")
+    geom_step(aes(linetype=strata), direction="hv") + ylab("prevalence")
   if (conf.int) {
     pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=event), alpha=0.5, linetype=0)
   }
