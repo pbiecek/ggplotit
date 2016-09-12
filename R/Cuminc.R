@@ -41,7 +41,7 @@ ggplotit.Cuminc <- function(x, conf.int=FALSE, labels=NULL, ...) {
 
   # is strata presented?
   if (length(obj$n)>1) {
-    tmp_long$strata <- rep(names(obj$strata), each=obj$n)
+    tmp_long$strata <- rep(names(obj$strata), obj$n)
   } else {
     tmp_long$strata <- ""
   }
