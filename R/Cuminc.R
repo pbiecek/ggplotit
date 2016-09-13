@@ -55,9 +55,15 @@ ggplotit.survfitms <- function(obj, conf.int=FALSE, breaks=NULL, labels=NULL, ..
     pl <- pl + geom_ribbon(aes(time, ymin=valL, ymax=valU, fill=event), alpha=0.5, linetype=0)
   }
   if (!is.null(breaks) & length(breaks)>0) {
-    ind <- sapply(breaks, function(b) min(which(tmp_long$time >= b)))
+    tmp_long$se <- paste(tmp_long$strata, tmp_long$event)
+    ind <- unlist(
+      lapply(breaks, function(b) {
+        lapply(unique(tmp_long$se),
+               function(use)
+                 min(which(tmp_long$time >= b & tmp_long$se == use)))
+      }))
     tmp_long_sel <- tmp_long[ind,]
-    pl <- pl + geom_errorbar(data=tmp_long_sel, aes(time, ymin=valL, ymax=valU, color=event))
+    pl <- pl + geom_errorbar(data=tmp_long_sel, aes(time, ymin=valL, ymax=valU, group=se, color=event), width=0.3)
   }
 
   pl
