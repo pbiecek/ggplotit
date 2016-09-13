@@ -24,11 +24,13 @@ ggplotit(ci, conf.int=TRUE, labels=c("event-free","AIDS","SI"))
 ci <- survfit(Surv(time=aidssi$time, event=aidssi$status, type="mstate")~1)
 ggplotit(ci)
 
-ci <- survfit(Surv(time=aidssi$time, event=aidssi$status, type="mstate")~aidssi$ccr5)
+ci <- survfit(Surv(time=aidssi$time, event=aidssi$status, type="mstate")~aidssi$ccr5, conf.int=0.9)
 ggplotit(ci)
 
 ggplotit(ci) + theme_bw()
 
 ggplotit(ci) + theme_bw() + facet_wrap(~strata)
+
+ggplotit(ci, breaks = 5) + theme_bw() + facet_wrap(~strata)
 
 ```
