@@ -4,12 +4,15 @@
 \alias{ggplotit.survfitms}
 \title{Plot the Multi State Objects with the ggplot2 Package}
 \usage{
-\method{ggplotit}{survfitms}(obj, conf.int = FALSE, labels = NULL, ...)
+\method{ggplotit}{survfitms}(obj, conf.int = FALSE, breaks = NULL,
+  labels = NULL, ...)
 }
 \arguments{
-\item{conf.int}{- shall the confidence interval be plotted?}
+\item{conf.int}{shall the confidence interval be plotted?}
 
-\item{labels}{- shall labels be added?}
+\item{breaks}{coordinates at whcih CI bars shall be added}
+
+\item{labels}{shall labels be added?}
 
 \item{...}{Other parameters}
 
