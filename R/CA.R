@@ -36,8 +36,8 @@ ggplotit.CA <- function(x, arrows=c(FALSE, FALSE), names=NULL, ...) {
   pl <- ggplot() +
     geom_text(data=X, aes(x.Dim1, x.Dim2, label=x.Names), color="blue", size=3) + 
     geom_text(data=Y, aes(y.Dim1, y.Dim2, label=y.Names), color="red", size=3) + 
-    geom_hline(xintercept=0, alpha=0.5) + 
-    geom_vline(yintercept=0, alpha=0.5) + 
+    geom_hline(yintercept=0, alpha=0.5) + 
+    geom_vline(xintercept=0, alpha=0.5) + 
     theme_bw()
   
   if (arrows[1]) {
